@@ -8,30 +8,36 @@
 
 import Foundation
 
+
+/// The object that contains all data gathered by the view
 struct Input {
     
 }
 
+
+/// The object that contains all data that is needed to display the view
 struct Output {
     
 }
 
 protocol ViewModelProtocol {
-    mutating func update(output: Output)
-    func getInput() -> Input
+    mutating func update(input: Input)
+    mutating func getOutputs() -> [Output]
 }
 
 struct BaseViewModel: ViewModelProtocol {
     
-    var inputChunck = [Input]()
-    var outputChunck = [Output]()
+    private var inputCluster = [Input]()
+    private var outputCluster = [Output]()
     
-    mutating func update(output: Output) {
-        outputChunck.append(output)
+    mutating func update(input: Input) {
+        inputCluster.append(input)
     }
     
-    func getInput() -> Input {
-        
-        return Input()
+    mutating func getOutputs() -> [Output] {
+        outputCluster = [Output]()
+        return outputCluster
     }
+    
+    
 }

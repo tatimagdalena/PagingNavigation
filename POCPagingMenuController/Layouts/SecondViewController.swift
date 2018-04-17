@@ -14,7 +14,7 @@ class SecondViewController: QuestionViewController {
     
     init(viewModel: ViewModelProtocol) {
         self.viewModel = viewModel
-        super.init(nibName: "FirstViewController", bundle: Bundle.main)
+        super.init(nibName: "SecondViewController", bundle: Bundle.main)
     }
     
     required init?(coder aDecoder: NSCoder) {

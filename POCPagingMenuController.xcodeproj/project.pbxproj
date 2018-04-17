@@ -118,10 +118,7 @@
 				4191185720867C3F00D05A1D /* BaseViewModel.swift */,
 				41911849208655E800D05A1D /* BaseViewController.swift */,
 				4191184A208655E800D05A1D /* BaseViewController.xib */,
-				4191184D2086569400D05A1D /* FirstViewController.swift */,
-				4191184E2086569400D05A1D /* FirstViewController.xib */,
-				41911851208656D700D05A1D /* SecondViewController.swift */,
-				41911852208656D700D05A1D /* SecondViewController.xib */,
+				4191185920868CCD00D05A1D /* Layouts */,
 			);
 			path = POCPagingMenuController;
 			sourceTree = "<group>";
@@ -150,6 +147,17 @@
 				41911847208655C800D05A1D /* PagingMenuController.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4191185920868CCD00D05A1D /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				4191184D2086569400D05A1D /* FirstViewController.swift */,
+				4191184E2086569400D05A1D /* FirstViewController.xib */,
+				41911851208656D700D05A1D /* SecondViewController.swift */,
+				41911852208656D700D05A1D /* SecondViewController.xib */,
+			);
+			path = Layouts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

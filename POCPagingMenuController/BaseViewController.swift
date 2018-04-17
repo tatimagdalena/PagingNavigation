@@ -21,6 +21,10 @@ struct QuestionPagingOptions: PagingMenuControllerCustomizable {
         return ComponentType.pagingController(pagingControllers: questionViewControllers)
     }
     
+    var isScrollEnabled: Bool {
+        return false
+    }
+    
     var questionViewControllers: [QuestionViewController]
     
     init(viewControllers: [QuestionViewController]) {
@@ -36,6 +40,10 @@ class BaseViewController: UIViewController {
     @IBOutlet var containerTopConstraint: NSLayoutConstraint!
     
     private let viewModel = BaseViewModel()
+    
+    private var pagingMenuController: PagingMenuController!
+    private var currentPage = 0
+    private var totalPages = 2
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -61,7 +69,7 @@ class BaseViewController: UIViewController {
     func configureQuestionsPagingMenu() {
         
         let options = QuestionPagingOptions(viewControllers: [FirstViewController(viewModel: viewModel), SecondViewController(viewModel: viewModel)])
-        let pagingMenuController = PagingMenuController(options: options)
+        pagingMenuController = PagingMenuController(options: options)
         pagingMenuController.view.frame = containerView.bounds
         
         addChildViewController(pagingMenuController)
@@ -69,5 +77,21 @@ class BaseViewController: UIViewController {
         pagingMenuController.didMove(toParentViewController: self)
         
     }
+    
+    @IBAction func goToNextPage(_ sender: UIButton) {
+        if currentPage < (totalPages - 1) {
+            pagingMenuController.move(toPage: currentPage + 1)
+            currentPage += 1
+        }
+    }
+    
+    @IBAction func backToPreviousPage(_ sender: UIButton) {
+        if currentPage > 0 {
+            pagingMenuController.move(toPage: currentPage - 1)
+            currentPage -= 1
+        }
+    }
+    
+    
 
 }

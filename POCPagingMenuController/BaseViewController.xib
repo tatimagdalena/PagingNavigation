@@ -24,9 +24,29 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PPn-mI-uYG" userLabel="Buttons View">
                     <rect key="frame" x="0.0" y="627" width="375" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jly-uD-b5h">
+                            <rect key="frame" x="20" y="5" width="59" height="30"/>
+                            <state key="normal" title="Previous"/>
+                            <connections>
+                                <action selector="backToPreviousPage:" destination="-1" eventType="touchUpInside" id="gi9-MR-g6e"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R2f-6U-nJH">
+                            <rect key="frame" x="323" y="5" width="32" height="30"/>
+                            <state key="normal" title="Next"/>
+                            <connections>
+                                <action selector="goToNextPage:" destination="-1" eventType="touchUpInside" id="Nk9-RD-KCo"/>
+                            </connections>
+                        </button>
+                    </subviews>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="R2f-6U-nJH" secondAttribute="trailing" constant="20" id="08F-zT-Chw"/>
+                        <constraint firstItem="Jly-uD-b5h" firstAttribute="leading" secondItem="PPn-mI-uYG" secondAttribute="leading" constant="20" id="FpJ-MA-dlE"/>
+                        <constraint firstItem="Jly-uD-b5h" firstAttribute="centerY" secondItem="PPn-mI-uYG" secondAttribute="centerY" id="Ibf-DY-6jV"/>
                         <constraint firstAttribute="height" constant="40" id="fac-4U-bZ8"/>
+                        <constraint firstItem="R2f-6U-nJH" firstAttribute="centerY" secondItem="PPn-mI-uYG" secondAttribute="centerY" id="xrw-Y9-t8f"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VOe-2L-raT" userLabel="Container View">
