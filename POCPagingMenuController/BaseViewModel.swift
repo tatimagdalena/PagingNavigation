@@ -27,6 +27,9 @@ protocol ViewModelProtocol {
 
 struct BaseViewModel: ViewModelProtocol {
     
+    var currentPage = 0
+    var totalPages = 2
+    
     private var inputCluster = [Input]()
     private var outputCluster = [Output]()
     
@@ -39,5 +42,20 @@ struct BaseViewModel: ViewModelProtocol {
         return outputCluster
     }
     
+    func hasNextPage() -> Bool {
+        return currentPage < (totalPages - 1)
+    }
+    
+    mutating func updateCurrentPage(index: Int) {
+        currentPage = index
+    }
+    
+    func hasPreviousPage() -> Bool {
+        return currentPage > 0
+    }
+    
+    func outputFor(page: Int) -> Output {
+        return outputCluster[page]
+    }
     
 }

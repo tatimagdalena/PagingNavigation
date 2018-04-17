@@ -13,8 +13,6 @@ class QuestionViewController: UIViewController {
     
 }
 
-struct MenuItem: MenuItemViewCustomizable {}
-
 struct QuestionPagingOptions: PagingMenuControllerCustomizable {
     
     var componentType: ComponentType {
@@ -39,11 +37,11 @@ class BaseViewController: UIViewController {
     
     @IBOutlet var containerTopConstraint: NSLayoutConstraint!
     
-    private let viewModel = BaseViewModel()
+    private var viewModel = BaseViewModel()
     
     private var pagingMenuController: PagingMenuController!
-    private var currentPage = 0
-    private var totalPages = 2
+//    private var currentPage = 0
+//    private var totalPages = 2
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -68,7 +66,7 @@ class BaseViewController: UIViewController {
     
     func configureQuestionsPagingMenu() {
         
-        let options = QuestionPagingOptions(viewControllers: [FirstViewController(viewModel: viewModel), SecondViewController(viewModel: viewModel)])
+        let options = QuestionPagingOptions(viewControllers: [FirstViewController(), SecondViewController()])
         pagingMenuController = PagingMenuController(options: options)
         pagingMenuController.view.frame = containerView.bounds
         
@@ -79,16 +77,18 @@ class BaseViewController: UIViewController {
     }
     
     @IBAction func goToNextPage(_ sender: UIButton) {
-        if currentPage < (totalPages - 1) {
-            pagingMenuController.move(toPage: currentPage + 1)
-            currentPage += 1
+        if viewModel.hasNextPage() {
+            let nextPageIndex = viewModel.currentPage + 1
+            pagingMenuController.move(toPage: nextPageIndex)
+            viewModel.updateCurrentPage(index: nextPageIndex)
         }
     }
     
     @IBAction func backToPreviousPage(_ sender: UIButton) {
-        if currentPage > 0 {
-            pagingMenuController.move(toPage: currentPage - 1)
-            currentPage -= 1
+        if viewModel.hasPreviousPage() {
+            let previousPageIndex = viewModel.currentPage - 1
+            pagingMenuController.move(toPage: previousPageIndex)
+            viewModel.updateCurrentPage(index: previousPageIndex)
         }
     }
     
