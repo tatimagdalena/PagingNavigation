@@ -6,12 +6,15 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FirstViewController" customModule="POCPagingMenuController" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OneInputViewController" customModule="POCPagingMenuController" customModuleProvider="target">
             <connections>
+                <outlet property="label" destination="wns-3F-SDE" id="tWT-xw-3NQ"/>
+                <outlet property="textField" destination="UfG-Dj-eFI" id="OxE-TS-Bkb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First View Controller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wns-3F-SDE">
-                    <rect key="frame" x="110" y="323" width="155" height="21"/>
+                    <rect key="frame" x="110" y="272.5" width="155" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -38,15 +41,24 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UfG-Dj-eFI">
+                    <rect key="frame" x="35" y="323.5" width="305" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="3lX-kB-7bd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="39m-BV-9j0"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UfG-Dj-eFI" secondAttribute="trailing" constant="35" id="8Bq-3E-YSv"/>
                 <constraint firstItem="jad-Ys-xiK" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="HXQ-Cc-kw6"/>
                 <constraint firstAttribute="bottom" secondItem="3lX-kB-7bd" secondAttribute="bottom" id="IRp-e7-sCB"/>
-                <constraint firstItem="wns-3F-SDE" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="YEw-4O-Nlo"/>
+                <constraint firstItem="wns-3F-SDE" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-40" id="YEw-4O-Nlo"/>
                 <constraint firstItem="wns-3F-SDE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="nDr-LN-V5U"/>
                 <constraint firstItem="jad-Ys-xiK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qiY-hv-aVW"/>
+                <constraint firstItem="UfG-Dj-eFI" firstAttribute="top" secondItem="wns-3F-SDE" secondAttribute="bottom" constant="30" id="wk8-yc-RVt"/>
+                <constraint firstItem="UfG-Dj-eFI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="wzP-zj-KOd"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>

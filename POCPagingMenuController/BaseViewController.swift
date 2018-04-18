@@ -6,15 +6,11 @@
 //  Copyright © 2018 Tatiana Magdalena. All rights reserved.
 //
 
-import UIKit
 import PagingMenuController
+import UIKit
 
-class QuestionViewController: UIViewController {
-    
-}
-
+/// The definition of the paging options is needed for the PagingMenuController framework.
 struct QuestionPagingOptions: PagingMenuControllerCustomizable {
-    
     var componentType: ComponentType {
         return ComponentType.pagingController(pagingControllers: questionViewControllers)
     }
@@ -23,31 +19,26 @@ struct QuestionPagingOptions: PagingMenuControllerCustomizable {
         return false
     }
     
-    var questionViewControllers: [QuestionViewController]
+    var questionViewControllers: [CommonViewController]
     
-    init(viewControllers: [QuestionViewController]) {
+    init(viewControllers: [CommonViewController]) {
         self.questionViewControllers = viewControllers
     }
-    
 }
 
 class BaseViewController: UIViewController {
-
     @IBOutlet var containerView: UIView!
-    
     @IBOutlet var containerTopConstraint: NSLayoutConstraint!
     
+    private var pagingMenuController: PagingMenuController!
     private var viewModel = BaseViewModel()
     
-    private var pagingMenuController: PagingMenuController!
-//    private var currentPage = 0
-//    private var totalPages = 2
+    // MARK: - Lifecycle -
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
+        
         if #available(iOS 11.0, *) {
-            
         } else {
             containerTopConstraint.constant = self.topLayoutGuide.length
         }
@@ -55,25 +46,32 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureQuestionsPagingMenu()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    // MARK: - Paging -
     
     func configureQuestionsPagingMenu() {
         
-        let options = QuestionPagingOptions(viewControllers: [FirstViewController(), SecondViewController()])
+        // TODO: Get view controllers dynamically
+        
+        let outputs = viewModel.getNextOutputs()
+        var childViewControllers = [CommonViewController]()
+        for output in outputs {
+            switch output.type {
+            case .singleInput: childViewControllers.append(OneInputViewController(title: output.title))
+            case .singleSelection(let selectionOptions): childViewControllers.append(SingleSelectionViewController(title: output.title, options: selectionOptions))
+            }
+        }
+        
+        let options = QuestionPagingOptions(viewControllers: childViewControllers)
         pagingMenuController = PagingMenuController(options: options)
         pagingMenuController.view.frame = containerView.bounds
         
         addChildViewController(pagingMenuController)
         containerView.addSubview(pagingMenuController.view)
         pagingMenuController.didMove(toParentViewController: self)
-        
     }
     
     @IBAction func goToNextPage(_ sender: UIButton) {
@@ -91,7 +89,4 @@ class BaseViewController: UIViewController {
             viewModel.updateCurrentPage(index: previousPageIndex)
         }
     }
-    
-    
-
 }
