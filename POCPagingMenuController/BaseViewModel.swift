@@ -58,4 +58,12 @@ struct BaseViewModel {
         currentLoop.currentPage = index
     }
     
+    mutating func save(_ input: Input, for output: Output) {
+        inputCluster.append(input)
+    }
+    
+    func sendInputs() {
+        
+    }
+    
 }

@@ -10,6 +10,7 @@
 		16F3BFCD2087B60D00DFABA1 /* CommonViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F3BFCC2087B60D00DFABA1 /* CommonViewControllerProtocol.swift */; };
 		16F3BFCF2088FED800DFABA1 /* FakeDataLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F3BFCE2088FED800DFABA1 /* FakeDataLayer.swift */; };
 		16F3BFD1208924D500DFABA1 /* FakePresenterModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F3BFD0208924D500DFABA1 /* FakePresenterModels.swift */; };
+		16F3BFD320892C5E00DFABA1 /* PagingOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F3BFD220892C5E00DFABA1 /* PagingOptions.swift */; };
 		419118182086533F00D05A1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419118172086533F00D05A1D /* AppDelegate.swift */; };
 		4191181F2086534100D05A1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4191181E2086534100D05A1D /* Assets.xcassets */; };
 		419118222086534100D05A1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419118202086534100D05A1D /* LaunchScreen.storyboard */; };
@@ -46,6 +47,7 @@
 		16F3BFCC2087B60D00DFABA1 /* CommonViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewControllerProtocol.swift; sourceTree = "<group>"; };
 		16F3BFCE2088FED800DFABA1 /* FakeDataLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataLayer.swift; sourceTree = "<group>"; };
 		16F3BFD0208924D500DFABA1 /* FakePresenterModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakePresenterModels.swift; sourceTree = "<group>"; };
+		16F3BFD220892C5E00DFABA1 /* PagingOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingOptions.swift; sourceTree = "<group>"; };
 		419118142086533F00D05A1D /* POCPagingMenuController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POCPagingMenuController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		419118172086533F00D05A1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4191181E2086534100D05A1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				419118232086534100D05A1D /* Info.plist */,
 				16F3BFCE2088FED800DFABA1 /* FakeDataLayer.swift */,
 				16F3BFD0208924D500DFABA1 /* FakePresenterModels.swift */,
+				16F3BFD220892C5E00DFABA1 /* PagingOptions.swift */,
 				4191185720867C3F00D05A1D /* BaseViewModel.swift */,
 				41911849208655E800D05A1D /* BaseViewController.swift */,
 				4191184A208655E800D05A1D /* BaseViewController.xib */,
@@ -326,6 +329,7 @@
 				4191184B208655E800D05A1D /* BaseViewController.swift in Sources */,
 				41911853208656D700D05A1D /* SingleSelectionViewController.swift in Sources */,
 				4191184F2086569400D05A1D /* OneInputViewController.swift in Sources */,
+				16F3BFD320892C5E00DFABA1 /* PagingOptions.swift in Sources */,
 				16F3BFCF2088FED800DFABA1 /* FakeDataLayer.swift in Sources */,
 				16F3BFD1208924D500DFABA1 /* FakePresenterModels.swift in Sources */,
 			);

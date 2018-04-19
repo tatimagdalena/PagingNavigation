@@ -9,31 +9,12 @@
 import PagingMenuController
 import UIKit
 
-/// The definition of the paging options is needed for the PagingMenuController framework.
-struct QuestionPagingOptions: PagingMenuControllerCustomizable {
-    var componentType: ComponentType {
-        return ComponentType.pagingController(pagingControllers: questionViewControllers)
-    }
-    
-    var isScrollEnabled: Bool {
-        return false
-    }
-    
-    var lazyLoadingPage: LazyLoadingPage {
-        return .one
-    }
-    
-    var questionViewControllers: [CommonViewController]
-    
-    init(viewControllers: [CommonViewController]) {
-        self.questionViewControllers = viewControllers
-    }
-}
-
 class BaseViewController: UIViewController {
+    // Outlets
     @IBOutlet var containerView: UIView!
     @IBOutlet var containerTopConstraint: NSLayoutConstraint!
     
+    // Properties
     private var pagingMenuController: PagingMenuController!
     private var viewModel = BaseViewModel()
     
@@ -51,13 +32,13 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureQuestionsPagingMenu()
+        configurePagingMenu()
     }
     
     // MARK: - Paging -
     
-    func configureQuestionsPagingMenu() {
-        let options = QuestionPagingOptions(viewControllers: createChildViewControllers())
+    func configurePagingMenu() {
+        let options = PagingOptions(viewControllers: createChildViewControllers())
         pagingMenuController = PagingMenuController(options: options)
         pagingMenuController.view.frame = containerView.bounds
         
@@ -65,51 +46,7 @@ class BaseViewController: UIViewController {
         containerView.addSubview(pagingMenuController.view)
         pagingMenuController.didMove(toParentViewController: self)
         
-        pagingMenuController.onMove = { state in
-            switch state {
-            case let .willMoveController(menuController, previousMenuController):
-                print("## WILL MOVE CONTROLLER ##")
-                print("From: \(previousMenuController)")
-                print("To: \(menuController)")
-            case let .didMoveController(menuController, previousMenuController):
-                print("## DID MOVE CONTROLLER ##")
-                print("From: \(previousMenuController)")
-                print("To: \(menuController)")
-            case let .willMoveItem(menuItemView, previousMenuItemView):
-                print(previousMenuItemView)
-                print(menuItemView)
-            case let .didMoveItem(menuItemView, previousMenuItemView):
-                print(previousMenuItemView)
-                print(menuItemView)
-            case .didScrollStart:
-                print("Scroll start")
-            case .didScrollEnd:
-                print("Scroll end")
-            }
-        }
-    }
-    
-    @IBAction func goToNextPage(_ sender: UIButton) {
-        switch viewModel.nextPageIndex() {
-        case let .canMoveToNext(newIndex):
-            pagingMenuController.move(toPage: newIndex, animated: true)
-            viewModel.updateCurrentPage(index: newIndex)
-        case .reachedEnd:
-            let options = QuestionPagingOptions(viewControllers: createChildViewControllers())
-            pagingMenuController.setup(options)
-        default:
-            break
-        }
-    }
-    
-    @IBAction func backToPreviousPage(_ sender: UIButton) {
-        switch viewModel.previousPageIndex() {
-        case let .canMoveToPrevious(newIndex):
-            pagingMenuController.move(toPage: newIndex, animated: true)
-            viewModel.updateCurrentPage(index: newIndex)
-        default:
-            break
-        }
+        handlePageChange()
     }
     
     func createChildViewControllers() -> [CommonViewController] {
@@ -117,10 +54,75 @@ class BaseViewController: UIViewController {
         var childViewControllers = [CommonViewController]()
         for output in outputs {
             switch output.type {
-            case .singleInput: childViewControllers.append(OneInputViewController(title: output.title))
-            case let .singleSelection(selectionOptions): childViewControllers.append(SingleSelectionViewController(title: output.title, options: selectionOptions))
+            case .singleInput:
+                childViewControllers.append(OneInputViewController(title: output.title))
+            case let .singleSelection(selectionOptions):
+                childViewControllers.append(SingleSelectionViewController(title: output.title, options: selectionOptions))
             }
         }
         return childViewControllers
+    }
+    
+    func handlePageChange() {
+        pagingMenuController.onMove = { state in
+            switch state {
+            case let .willMoveController(menuController, previousMenuController):
+                print("## WILL MOVE CONTROLLER ##")
+                print("From: \(previousMenuController)")
+                print("To: \(menuController)")
+                
+                let commonViewController = previousMenuController as! CommonViewController
+                switch commonViewController.layoutType {
+                case .singleInput:
+                    print("Saindo de uma tela de Single Input")
+                case .singleSelection:
+                    print("Saindo de uma tela de Single Selection")
+                }
+                
+            case let .didMoveController(menuController, previousMenuController):
+                print("## DID MOVE CONTROLLER ##")
+                print("From: \(previousMenuController)")
+                print("To: \(menuController)")
+            default:
+                break
+            }
+        }
+    }
+    
+    @IBAction func goToNextPage(_ sender: UIButton) {
+        
+        // gather current page information
+        
+        
+        
+        // change page
+        
+        switch viewModel.nextPageIndex() {
+        case let .canMoveToNext(newIndex):
+            pagingMenuController.move(toPage: newIndex, animated: true)
+            viewModel.updateCurrentPage(index: newIndex)
+        case .reachedEnd:
+            let options = PagingOptions(viewControllers: createChildViewControllers())
+            pagingMenuController.setup(options)
+        default:
+            break
+        }
+    }
+    
+    @IBAction func backToPreviousPage(_ sender: UIButton) {
+        
+        // gather current page information
+        
+        
+        
+        // change page
+        
+        switch viewModel.previousPageIndex() {
+        case let .canMoveToPrevious(newIndex):
+            pagingMenuController.move(toPage: newIndex, animated: true)
+            viewModel.updateCurrentPage(index: newIndex)
+        default:
+            break
+        }
     }
 }

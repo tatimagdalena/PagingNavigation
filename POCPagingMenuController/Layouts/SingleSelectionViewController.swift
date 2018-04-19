@@ -8,35 +8,31 @@
 
 import UIKit
 
-//struct <#name#> {
-//    <#fields#>
-//}
-
-
 class SingleSelectionViewController: CommonViewController {
 
+    // MARK: Outlets
+    
     @IBOutlet var label: UILabel!
     @IBOutlet var tableView: UITableView!
+    
+    // MARK: Properties
     
     var options: [String]
     var screenTitle: String
     
-//    private var viewModel: ViewModelProtocol
-//    
-//    init(viewModel: ViewModelProtocol) {
-//        self.viewModel = viewModel
-//        super.init(nibName: "SecondViewController", bundle: Bundle.main)
-//    }
-
+    // MARK: - Initializers -
+    
     init(title: String, options: [String]) {
         self.options = options
         self.screenTitle = title
-        super.init(nibName: "SingleSelectionViewController", bundle: Bundle.main)
+        super.init(layoutType: .singleSelection(options: options), nibName: "SingleSelectionViewController")
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Lifecycle -
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +43,8 @@ class SingleSelectionViewController: CommonViewController {
     }
     
 }
+
+// MARK: - Table view -
 
 extension SingleSelectionViewController: UITableViewDataSource {
     

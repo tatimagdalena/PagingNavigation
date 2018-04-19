@@ -14,8 +14,14 @@ import UIKit
 
 class CommonViewController: UIViewController {
     
-    var type: Output.LayoutType?
+    let layoutType: Output.LayoutType
     
-    var input: Input?
-    var output: Output?
+    init(layoutType: Output.LayoutType, nibName: String) {
+        self.layoutType = layoutType
+        super.init(nibName: nibName, bundle: Bundle.main)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
