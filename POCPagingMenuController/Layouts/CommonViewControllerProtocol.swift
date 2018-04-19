@@ -14,6 +14,8 @@ import UIKit
 
 class CommonViewController: UIViewController {
     
+    var type: Output.LayoutType?
+    
     var input: Input?
     var output: Output?
 }

@@ -19,6 +19,10 @@ struct QuestionPagingOptions: PagingMenuControllerCustomizable {
         return false
     }
     
+    var lazyLoadingPage: LazyLoadingPage {
+        return .one
+    }
+    
     var questionViewControllers: [CommonViewController]
     
     init(viewControllers: [CommonViewController]) {
@@ -53,40 +57,70 @@ class BaseViewController: UIViewController {
     // MARK: - Paging -
     
     func configureQuestionsPagingMenu() {
-        
-        // TODO: Get view controllers dynamically
-        
-        let outputs = viewModel.getNextOutputs()
-        var childViewControllers = [CommonViewController]()
-        for output in outputs {
-            switch output.type {
-            case .singleInput: childViewControllers.append(OneInputViewController(title: output.title))
-            case .singleSelection(let selectionOptions): childViewControllers.append(SingleSelectionViewController(title: output.title, options: selectionOptions))
-            }
-        }
-        
-        let options = QuestionPagingOptions(viewControllers: childViewControllers)
+        let options = QuestionPagingOptions(viewControllers: createChildViewControllers())
         pagingMenuController = PagingMenuController(options: options)
         pagingMenuController.view.frame = containerView.bounds
         
         addChildViewController(pagingMenuController)
         containerView.addSubview(pagingMenuController.view)
         pagingMenuController.didMove(toParentViewController: self)
+        
+        pagingMenuController.onMove = { state in
+            switch state {
+            case let .willMoveController(menuController, previousMenuController):
+                print("## WILL MOVE CONTROLLER ##")
+                print("From: \(previousMenuController)")
+                print("To: \(menuController)")
+            case let .didMoveController(menuController, previousMenuController):
+                print("## DID MOVE CONTROLLER ##")
+                print("From: \(previousMenuController)")
+                print("To: \(menuController)")
+            case let .willMoveItem(menuItemView, previousMenuItemView):
+                print(previousMenuItemView)
+                print(menuItemView)
+            case let .didMoveItem(menuItemView, previousMenuItemView):
+                print(previousMenuItemView)
+                print(menuItemView)
+            case .didScrollStart:
+                print("Scroll start")
+            case .didScrollEnd:
+                print("Scroll end")
+            }
+        }
     }
     
     @IBAction func goToNextPage(_ sender: UIButton) {
-        if viewModel.hasNextPage() {
-            let nextPageIndex = viewModel.currentPage + 1
-            pagingMenuController.move(toPage: nextPageIndex)
-            viewModel.updateCurrentPage(index: nextPageIndex)
+        switch viewModel.nextPageIndex() {
+        case let .canMoveToNext(newIndex):
+            pagingMenuController.move(toPage: newIndex, animated: true)
+            viewModel.updateCurrentPage(index: newIndex)
+        case .reachedEnd:
+            let options = QuestionPagingOptions(viewControllers: createChildViewControllers())
+            pagingMenuController.setup(options)
+        default:
+            break
         }
     }
     
     @IBAction func backToPreviousPage(_ sender: UIButton) {
-        if viewModel.hasPreviousPage() {
-            let previousPageIndex = viewModel.currentPage - 1
-            pagingMenuController.move(toPage: previousPageIndex)
-            viewModel.updateCurrentPage(index: previousPageIndex)
+        switch viewModel.previousPageIndex() {
+        case let .canMoveToPrevious(newIndex):
+            pagingMenuController.move(toPage: newIndex, animated: true)
+            viewModel.updateCurrentPage(index: newIndex)
+        default:
+            break
         }
+    }
+    
+    func createChildViewControllers() -> [CommonViewController] {
+        let outputs = viewModel.getNextOutputs()
+        var childViewControllers = [CommonViewController]()
+        for output in outputs {
+            switch output.type {
+            case .singleInput: childViewControllers.append(OneInputViewController(title: output.title))
+            case let .singleSelection(selectionOptions): childViewControllers.append(SingleSelectionViewController(title: output.title, options: selectionOptions))
+            }
+        }
+        return childViewControllers
     }
 }

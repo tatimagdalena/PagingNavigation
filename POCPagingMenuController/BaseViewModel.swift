@@ -8,85 +8,54 @@
 
 import Foundation
 
-
-/// The object that contains all data gathered by the view
-struct Input {
-    
-}
-
-enum OutputType {
-    case singleInput
-    case singleSelection(options: [String])
-    
-    var xibName: String {
-        switch self {
-        case .singleInput: return "OneInputViewController"
-        case .singleSelection: return "SingleSelectionViewController"
-        }
+struct BaseViewModel {
+    struct Loop {
+        var currentPage = 0
+        var totalPages = 0
     }
-}
-
-/// The object that contains all data that is needed to display the view
-struct Output {
-    let title: String
-    let type: OutputType
-}
-
-protocol ViewModelProtocol {
-    mutating func update(input: Input)
-    mutating func getNextOutputs() -> [Output]
-}
-
-struct BaseViewModel: ViewModelProtocol {
     
-    var currentPage = 0
-    var totalPages = 0
+    var currentLoop: Loop!
     
     private var inputCluster = [Input]()
     private var outputCluster = [Output]()
     
-    mutating func update(input: Input) {
-        inputCluster.append(input)
-    }
-    
     mutating func getNextOutputs() -> [Output] {
-        let output1 = Output(title: "Single text input", type: .singleInput)
-        let output2 = Output(title: "Single selection", type: .singleSelection(options: ["option #1", "option #2"]))
-        outputCluster = [output2, output1]
-        totalPages = outputCluster.count
+        outputCluster = FakeDataLayer().getOutputCluster()
+        currentLoop = Loop(currentPage: 0, totalPages: outputCluster.count)
         return outputCluster
     }
     
-//    enum PagingStatus {
-//        case changed(newPage: Int)
-//        case reachedEnd(page: Int)
-//        case reachedBegining
-//    }
-//
-//    mutating func updateToNextPage() -> PagingStatus {
-//        if hasNextPage() {
-//            currentPage += 1
-//            return .changed(newPage: currentPage)
-//        }
-//        return .reachedEnd(page: currentPage)
-//    }
-    
-    func hasNextPage() -> Bool {
-        return currentPage < (totalPages - 1)
+    enum PageChangeStatus {
+        case canMoveToNext(newPage: Int)
+        case reachedEnd
+        case canMoveToPrevious(newPage: Int)
+        case reachedBeggining
     }
     
-    mutating func updateCurrentPage(index: Int) {
-        currentPage = index
+    func hasNextPage() -> Bool {
+        return currentLoop.currentPage < (currentLoop.totalPages - 1)
     }
     
     func hasPreviousPage() -> Bool {
-        return currentPage > 0
+        return currentLoop.currentPage > 0
     }
     
-    func outputFor(page: Int) -> Output {
-        return outputCluster[page]
+    func nextPageIndex() -> PageChangeStatus {
+        if hasNextPage() {
+            return .canMoveToNext(newPage: currentLoop.currentPage + 1)
+        }
+        return .reachedEnd
     }
     
+    func previousPageIndex() -> PageChangeStatus {
+        if hasPreviousPage() {
+            return .canMoveToPrevious(newPage: currentLoop.currentPage - 1)
+        }
+        return .reachedBeggining
+    }
     
+    mutating func updateCurrentPage(index: Int) {
+        currentLoop.currentPage = index
+    }
     
 }
