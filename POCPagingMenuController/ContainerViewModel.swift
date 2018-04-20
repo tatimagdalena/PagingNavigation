@@ -8,10 +8,31 @@
 
 import Foundation
 
-struct ContainerViewModel {
+protocol ContainerViewModelProtocol {
+    
+    mutating func getNextOutputs() -> [Output]
+    func hasNextPage() -> Bool
+    func hasPreviousPage() -> Bool
+    func nextPageIndex() -> ContainerViewModel.PageChangeStatus
+    func previousPageIndex() -> ContainerViewModel.PageChangeStatus
+    mutating func updateCurrentPage(index: Int)
+    mutating func save(input: Input)
+    func sendInputs()
+    mutating func clearCurrentState()
+    
+}
+
+struct ContainerViewModel: ContainerViewModelProtocol {
     struct Loop {
         var currentPage = 0
         var totalPages = 0
+    }
+    
+    enum PageChangeStatus {
+        case canMoveToNext(newPage: Int)
+        case reachedEnd
+        case canMoveToPrevious(newPage: Int)
+        case reachedBeggining
     }
     
     var currentLoop: Loop!
@@ -23,13 +44,6 @@ struct ContainerViewModel {
         outputCluster = FakeDataLayer().getOutputCluster()
         currentLoop = Loop(currentPage: 0, totalPages: outputCluster.count)
         return outputCluster
-    }
-    
-    enum PageChangeStatus {
-        case canMoveToNext(newPage: Int)
-        case reachedEnd
-        case canMoveToPrevious(newPage: Int)
-        case reachedBeggining
     }
     
     func hasNextPage() -> Bool {

@@ -20,7 +20,7 @@ class SingleSelectionViewController: CommonViewController {
     var options = [String]()
     
     // MARK: - Initializers -
-
+    
     init(output: Output) {
         super.init(output: output, nibName: "SingleSelectionViewController")
     }
@@ -33,7 +33,7 @@ class SingleSelectionViewController: CommonViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         label.text = output.title
         
         if case let Output.LayoutType.singleSelection(options) = output.type {
@@ -42,13 +42,11 @@ class SingleSelectionViewController: CommonViewController {
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
-    
 }
 
 // MARK: - Table view -
 
 extension SingleSelectionViewController: UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -58,7 +56,6 @@ extension SingleSelectionViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = options[indexPath.row]
         
@@ -67,10 +64,8 @@ extension SingleSelectionViewController: UITableViewDataSource {
 }
 
 extension SingleSelectionViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedValue = options[indexPath.row]
         input = Input(relatedOutputId: output.id, id: selectedValue, data: selectedValue)
     }
-    
 }

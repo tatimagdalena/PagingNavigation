@@ -16,7 +16,16 @@ class ContainerViewController: UIViewController {
     
     // Properties
     private var pagingMenuController: PagingMenuController!
-    private var viewModel = ContainerViewModel()
+    private var viewModel: ContainerViewModelProtocol
+    
+    init(viewModel: ContainerViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: "ContainerViewController", bundle: Bundle.main)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lifecycle -
     
