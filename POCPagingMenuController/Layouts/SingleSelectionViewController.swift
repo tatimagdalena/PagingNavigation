@@ -17,15 +17,12 @@ class SingleSelectionViewController: CommonViewController {
     
     // MARK: Properties
     
-    var options: [String]
-    var screenTitle: String
+    var options = [String]()
     
     // MARK: - Initializers -
-    
-    init(title: String, options: [String]) {
-        self.options = options
-        self.screenTitle = title
-        super.init(layoutType: .singleSelection(options: options), nibName: "SingleSelectionViewController")
+
+    init(output: Output) {
+        super.init(output: output, nibName: "SingleSelectionViewController")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,7 +34,11 @@ class SingleSelectionViewController: CommonViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        label.text = screenTitle
+        label.text = output.title
+        
+        if case let Output.LayoutType.singleSelection(options) = output.type {
+            self.options = options
+        }
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
@@ -63,4 +64,13 @@ extension SingleSelectionViewController: UITableViewDataSource {
         
         return cell
     }
+}
+
+extension SingleSelectionViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedValue = options[indexPath.row]
+        input = Input(relatedOutputId: output.id, id: selectedValue, data: selectedValue)
+    }
+    
 }

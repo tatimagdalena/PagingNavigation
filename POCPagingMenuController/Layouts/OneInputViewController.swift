@@ -15,15 +15,10 @@ class OneInputViewController: CommonViewController {
     @IBOutlet var label: UILabel!
     @IBOutlet var textField: UITextField!
     
-    // MARK: Properties
-    
-    var screenTitle: String
-    
     // MARK: - Initializers -
-    
-    init(title: String) {
-        self.screenTitle = title
-        super.init(layoutType: .singleInput, nibName: "OneInputViewController")
+
+    init(output: Output) {
+        super.init(output: output, nibName: "OneInputViewController")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,8 +30,17 @@ class OneInputViewController: CommonViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        label.text = screenTitle
+        label.text = output.title
+        textField.delegate = self
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
+}
+
+extension OneInputViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        input = Input(relatedOutputId: output.id, id: textField.text ?? "", data: textField.text ?? "")
+    }
+    
 }

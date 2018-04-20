@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BaseViewController" customModule="POCPagingMenuController" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContainerViewController" customModule="POCPagingMenuController" customModuleProvider="target">
             <connections>
-                <outlet property="containerTopConstraint" destination="wSn-TM-lFu" id="mdl-sE-uLD"/>
-                <outlet property="containerView" destination="VOe-2L-raT" id="De1-Qx-Rcq"/>
+                <outlet property="containerTopConstraint" destination="wSn-TM-lFu" id="n05-hX-JlQ"/>
+                <outlet property="containerView" destination="VOe-2L-raT" id="cM8-LY-WPb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -29,14 +29,14 @@
                             <rect key="frame" x="20" y="5" width="59" height="30"/>
                             <state key="normal" title="Previous"/>
                             <connections>
-                                <action selector="backToPreviousPage:" destination="-1" eventType="touchUpInside" id="gi9-MR-g6e"/>
+                                <action selector="backToPreviousPage:" destination="-1" eventType="touchUpInside" id="2Ue-Cf-qOs"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R2f-6U-nJH">
                             <rect key="frame" x="323" y="5" width="32" height="30"/>
                             <state key="normal" title="Next"/>
                             <connections>
-                                <action selector="goToNextPage:" destination="-1" eventType="touchUpInside" id="Nk9-RD-KCo"/>
+                                <action selector="goToNextPage:" destination="-1" eventType="touchUpInside" id="bR9-SS-ykU"/>
                             </connections>
                         </button>
                     </subviews>

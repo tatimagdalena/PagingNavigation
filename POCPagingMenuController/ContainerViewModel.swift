@@ -1,5 +1,5 @@
 //
-//  BaseViewModel.swift
+//  ContainerViewModel.swift
 //  POCPagingMenuController
 //
 //  Created by Tatiana Magdalena on 17/04/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BaseViewModel {
+struct ContainerViewModel {
     struct Loop {
         var currentPage = 0
         var totalPages = 0
@@ -58,12 +58,24 @@ struct BaseViewModel {
         currentLoop.currentPage = index
     }
     
-    mutating func save(_ input: Input, for output: Output) {
-        inputCluster.append(input)
+    mutating func save(input: Input) {
+        if let index = inputCluster.index(where: { $0.id == input.id }) {
+            inputCluster[index] = input
+        }
+        else {
+            inputCluster.append(input)
+        }
     }
     
     func sendInputs() {
-        
+        print("** SEND INPUTS TO API **")
+        print(inputCluster)
+    }
+    
+    mutating func clearCurrentState() {
+        currentLoop = nil
+        inputCluster = []
+        outputCluster = []
     }
     
 }

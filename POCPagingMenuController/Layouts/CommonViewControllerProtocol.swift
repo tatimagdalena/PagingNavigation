@@ -14,10 +14,18 @@ import UIKit
 
 class CommonViewController: UIViewController {
     
-    let layoutType: Output.LayoutType
+//    let layoutType: Output.LayoutType
     
-    init(layoutType: Output.LayoutType, nibName: String) {
-        self.layoutType = layoutType
+    let output: Output
+    var input: Input?
+    
+//    init(layoutType: Output.LayoutType, nibName: String) {
+//        self.layoutType = layoutType
+//        super.init(nibName: nibName, bundle: Bundle.main)
+//    }
+    
+    init(output: Output, nibName: String) {
+        self.output = output
         super.init(nibName: nibName, bundle: Bundle.main)
     }
     

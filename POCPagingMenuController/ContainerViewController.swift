@@ -1,5 +1,5 @@
 //
-//  BaseViewController.swift
+//  ContainerViewController.swift
 //  POCPagingMenuController
 //
 //  Created by Tatiana Magdalena on 17/04/18.
@@ -9,14 +9,14 @@
 import PagingMenuController
 import UIKit
 
-class BaseViewController: UIViewController {
+class ContainerViewController: UIViewController {
     // Outlets
     @IBOutlet var containerView: UIView!
     @IBOutlet var containerTopConstraint: NSLayoutConstraint!
     
     // Properties
     private var pagingMenuController: PagingMenuController!
-    private var viewModel = BaseViewModel()
+    private var viewModel = ContainerViewModel()
     
     // MARK: - Lifecycle -
     
@@ -45,8 +45,6 @@ class BaseViewController: UIViewController {
         addChildViewController(pagingMenuController)
         containerView.addSubview(pagingMenuController.view)
         pagingMenuController.didMove(toParentViewController: self)
-        
-        handlePageChange()
     }
     
     func createChildViewControllers() -> [CommonViewController] {
@@ -55,45 +53,18 @@ class BaseViewController: UIViewController {
         for output in outputs {
             switch output.type {
             case .singleInput:
-                childViewControllers.append(OneInputViewController(title: output.title))
-            case let .singleSelection(selectionOptions):
-                childViewControllers.append(SingleSelectionViewController(title: output.title, options: selectionOptions))
+                childViewControllers.append(OneInputViewController(output: output))
+            case .singleSelection:
+                childViewControllers.append(SingleSelectionViewController(output: output))
             }
         }
         return childViewControllers
     }
     
-    func handlePageChange() {
-        pagingMenuController.onMove = { state in
-            switch state {
-            case let .willMoveController(menuController, previousMenuController):
-                print("## WILL MOVE CONTROLLER ##")
-                print("From: \(previousMenuController)")
-                print("To: \(menuController)")
-                
-                let commonViewController = previousMenuController as! CommonViewController
-                switch commonViewController.layoutType {
-                case .singleInput:
-                    print("Saindo de uma tela de Single Input")
-                case .singleSelection:
-                    print("Saindo de uma tela de Single Selection")
-                }
-                
-            case let .didMoveController(menuController, previousMenuController):
-                print("## DID MOVE CONTROLLER ##")
-                print("From: \(previousMenuController)")
-                print("To: \(menuController)")
-            default:
-                break
-            }
-        }
-    }
-    
     @IBAction func goToNextPage(_ sender: UIButton) {
-        
         // gather current page information
         
-        
+        gatherPageInput()
         
         // change page
         
@@ -102,6 +73,8 @@ class BaseViewController: UIViewController {
             pagingMenuController.move(toPage: newIndex, animated: true)
             viewModel.updateCurrentPage(index: newIndex)
         case .reachedEnd:
+            viewModel.sendInputs()
+            viewModel.clearCurrentState()
             let options = PagingOptions(viewControllers: createChildViewControllers())
             pagingMenuController.setup(options)
         default:
@@ -110,10 +83,9 @@ class BaseViewController: UIViewController {
     }
     
     @IBAction func backToPreviousPage(_ sender: UIButton) {
-        
         // gather current page information
         
-        
+        gatherPageInput()
         
         // change page
         
@@ -123,6 +95,14 @@ class BaseViewController: UIViewController {
             viewModel.updateCurrentPage(index: newIndex)
         default:
             break
+        }
+    }
+    
+    func gatherPageInput() {
+        if let currentViewController = pagingMenuController.pagingViewController?.currentViewController as? CommonViewController {
+            if let input = currentViewController.input {
+                viewModel.save(input: input)
+            }
         }
     }
 }

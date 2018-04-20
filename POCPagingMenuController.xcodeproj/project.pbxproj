@@ -17,13 +17,13 @@
 		4191182D2086534100D05A1D /* POCPagingMenuControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4191182C2086534100D05A1D /* POCPagingMenuControllerTests.swift */; };
 		419118382086534100D05A1D /* POCPagingMenuControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419118372086534100D05A1D /* POCPagingMenuControllerUITests.swift */; };
 		41911848208655C800D05A1D /* PagingMenuController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41911847208655C800D05A1D /* PagingMenuController.framework */; };
-		4191184B208655E800D05A1D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41911849208655E800D05A1D /* BaseViewController.swift */; };
-		4191184C208655E800D05A1D /* BaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4191184A208655E800D05A1D /* BaseViewController.xib */; };
+		4191184B208655E800D05A1D /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41911849208655E800D05A1D /* ContainerViewController.swift */; };
+		4191184C208655E800D05A1D /* ContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4191184A208655E800D05A1D /* ContainerViewController.xib */; };
 		4191184F2086569400D05A1D /* OneInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4191184D2086569400D05A1D /* OneInputViewController.swift */; };
 		419118502086569400D05A1D /* OneInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4191184E2086569400D05A1D /* OneInputViewController.xib */; };
 		41911853208656D700D05A1D /* SingleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41911851208656D700D05A1D /* SingleSelectionViewController.swift */; };
 		41911854208656D700D05A1D /* SingleSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41911852208656D700D05A1D /* SingleSelectionViewController.xib */; };
-		4191185820867C3F00D05A1D /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4191185720867C3F00D05A1D /* BaseViewModel.swift */; };
+		4191185820867C3F00D05A1D /* ContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4191185720867C3F00D05A1D /* ContainerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,13 +60,13 @@
 		419118372086534100D05A1D /* POCPagingMenuControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POCPagingMenuControllerUITests.swift; sourceTree = "<group>"; };
 		419118392086534100D05A1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41911847208655C800D05A1D /* PagingMenuController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PagingMenuController.framework; path = Carthage/Build/iOS/PagingMenuController.framework; sourceTree = "<group>"; };
-		41911849208655E800D05A1D /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		4191184A208655E800D05A1D /* BaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BaseViewController.xib; sourceTree = "<group>"; };
+		41911849208655E800D05A1D /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		4191184A208655E800D05A1D /* ContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainerViewController.xib; sourceTree = "<group>"; };
 		4191184D2086569400D05A1D /* OneInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInputViewController.swift; sourceTree = "<group>"; };
 		4191184E2086569400D05A1D /* OneInputViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneInputViewController.xib; sourceTree = "<group>"; };
 		41911851208656D700D05A1D /* SingleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelectionViewController.swift; sourceTree = "<group>"; };
 		41911852208656D700D05A1D /* SingleSelectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleSelectionViewController.xib; sourceTree = "<group>"; };
-		4191185720867C3F00D05A1D /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		4191185720867C3F00D05A1D /* ContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,9 +126,9 @@
 				16F3BFCE2088FED800DFABA1 /* FakeDataLayer.swift */,
 				16F3BFD0208924D500DFABA1 /* FakePresenterModels.swift */,
 				16F3BFD220892C5E00DFABA1 /* PagingOptions.swift */,
-				4191185720867C3F00D05A1D /* BaseViewModel.swift */,
-				41911849208655E800D05A1D /* BaseViewController.swift */,
-				4191184A208655E800D05A1D /* BaseViewController.xib */,
+				4191185720867C3F00D05A1D /* ContainerViewModel.swift */,
+				41911849208655E800D05A1D /* ContainerViewController.swift */,
+				4191184A208655E800D05A1D /* ContainerViewController.xib */,
 				4191185920868CCD00D05A1D /* Layouts */,
 			);
 			path = POCPagingMenuController;
@@ -277,7 +277,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4191184C208655E800D05A1D /* BaseViewController.xib in Resources */,
+				4191184C208655E800D05A1D /* ContainerViewController.xib in Resources */,
 				419118222086534100D05A1D /* LaunchScreen.storyboard in Resources */,
 				4191181F2086534100D05A1D /* Assets.xcassets in Resources */,
 				419118502086569400D05A1D /* OneInputViewController.xib in Resources */,
@@ -324,9 +324,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				419118182086533F00D05A1D /* AppDelegate.swift in Sources */,
-				4191185820867C3F00D05A1D /* BaseViewModel.swift in Sources */,
+				4191185820867C3F00D05A1D /* ContainerViewModel.swift in Sources */,
 				16F3BFCD2087B60D00DFABA1 /* CommonViewControllerProtocol.swift in Sources */,
-				4191184B208655E800D05A1D /* BaseViewController.swift in Sources */,
+				4191184B208655E800D05A1D /* ContainerViewController.swift in Sources */,
 				41911853208656D700D05A1D /* SingleSelectionViewController.swift in Sources */,
 				4191184F2086569400D05A1D /* OneInputViewController.swift in Sources */,
 				16F3BFD320892C5E00DFABA1 /* PagingOptions.swift in Sources */,
