@@ -21,8 +21,8 @@ class SingleSelectionViewController: CommonViewController {
     
     // MARK: - Initializers -
     
-    init(output: Output) {
-        super.init(output: output, nibName: "SingleSelectionViewController")
+    init(question: Question, viewModel: ContainerViewModelProtocol, nextButton: UIButton) {
+        super.init(question: question, nibName: "SingleSelectionViewController", viewModel: viewModel, nextButton: nextButton)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,14 +34,15 @@ class SingleSelectionViewController: CommonViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        label.text = output.title
+        label.text = question.title
         
-        if case let Output.LayoutType.singleSelection(options) = output.type {
+        if case let Layout.singleSelection(options) = question.type {
             self.options = options
         }
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
+    
 }
 
 // MARK: - Table view -
@@ -64,8 +65,17 @@ extension SingleSelectionViewController: UITableViewDataSource {
 }
 
 extension SingleSelectionViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedValue = options[indexPath.row]
-        input = Input(relatedOutputId: output.id, id: selectedValue, data: selectedValue)
+        let input = Input(id: selectedValue, data: selectedValue)
+        compilation = AnswerCompilation(relatedQuestionId: question.id, inputs: [input])
+        
+        handleNewSelection()
+    }
+    
+    func handleNewSelection() {
+        let status = viewModel.selected(amount: tableView.indexPathsForSelectedRows?.count ?? 0)
+        updateNextButtonUI(status: status)
     }
 }

@@ -7,10 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		16F3BFCD2087B60D00DFABA1 /* CommonViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F3BFCC2087B60D00DFABA1 /* CommonViewControllerProtocol.swift */; };
+		16F3BFCD2087B60D00DFABA1 /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F3BFCC2087B60D00DFABA1 /* CommonViewController.swift */; };
 		16F3BFCF2088FED800DFABA1 /* FakeDataLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F3BFCE2088FED800DFABA1 /* FakeDataLayer.swift */; };
-		16F3BFD1208924D500DFABA1 /* FakePresenterModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F3BFD0208924D500DFABA1 /* FakePresenterModels.swift */; };
+		16F3BFD1208924D500DFABA1 /* FakeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F3BFD0208924D500DFABA1 /* FakeModels.swift */; };
 		16F3BFD320892C5E00DFABA1 /* PagingOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F3BFD220892C5E00DFABA1 /* PagingOptions.swift */; };
+		417450C1208F71720068CADC /* RegexValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417450C0208F71720068CADC /* RegexValidator.swift */; };
+		417450C3208F71AF0068CADC /* CPFValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417450C2208F71AF0068CADC /* CPFValidator.swift */; };
+		417450C6208F72030068CADC /* CNPJValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417450C5208F72030068CADC /* CNPJValidator.swift */; };
+		417450C8208F7E780068CADC /* SelectionValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417450C7208F7E780068CADC /* SelectionValidator.swift */; };
+		417450CA208F8FE60068CADC /* ValidationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417450C9208F8FE60068CADC /* ValidationStatus.swift */; };
 		419118182086533F00D05A1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419118172086533F00D05A1D /* AppDelegate.swift */; };
 		4191181F2086534100D05A1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4191181E2086534100D05A1D /* Assets.xcassets */; };
 		419118222086534100D05A1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419118202086534100D05A1D /* LaunchScreen.storyboard */; };
@@ -24,6 +29,8 @@
 		41911853208656D700D05A1D /* SingleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41911851208656D700D05A1D /* SingleSelectionViewController.swift */; };
 		41911854208656D700D05A1D /* SingleSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41911852208656D700D05A1D /* SingleSelectionViewController.xib */; };
 		4191185820867C3F00D05A1D /* ContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4191185720867C3F00D05A1D /* ContainerViewModel.swift */; };
+		41972F692090DA88002384DB /* ValidationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41972F682090DA88002384DB /* ValidationKind.swift */; };
+		41972F6D2091023A002384DB /* ContainerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41972F6C2091023A002384DB /* ContainerViewModelProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,10 +51,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		16F3BFCC2087B60D00DFABA1 /* CommonViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewControllerProtocol.swift; sourceTree = "<group>"; };
+		16F3BFCC2087B60D00DFABA1 /* CommonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
 		16F3BFCE2088FED800DFABA1 /* FakeDataLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataLayer.swift; sourceTree = "<group>"; };
-		16F3BFD0208924D500DFABA1 /* FakePresenterModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakePresenterModels.swift; sourceTree = "<group>"; };
+		16F3BFD0208924D500DFABA1 /* FakeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeModels.swift; sourceTree = "<group>"; };
 		16F3BFD220892C5E00DFABA1 /* PagingOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingOptions.swift; sourceTree = "<group>"; };
+		417450C0208F71720068CADC /* RegexValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexValidator.swift; sourceTree = "<group>"; };
+		417450C2208F71AF0068CADC /* CPFValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPFValidator.swift; sourceTree = "<group>"; };
+		417450C5208F72030068CADC /* CNPJValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNPJValidator.swift; sourceTree = "<group>"; };
+		417450C7208F7E780068CADC /* SelectionValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionValidator.swift; sourceTree = "<group>"; };
+		417450C9208F8FE60068CADC /* ValidationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationStatus.swift; sourceTree = "<group>"; };
 		419118142086533F00D05A1D /* POCPagingMenuController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POCPagingMenuController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		419118172086533F00D05A1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4191181E2086534100D05A1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,6 +79,8 @@
 		41911851208656D700D05A1D /* SingleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelectionViewController.swift; sourceTree = "<group>"; };
 		41911852208656D700D05A1D /* SingleSelectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleSelectionViewController.xib; sourceTree = "<group>"; };
 		4191185720867C3F00D05A1D /* ContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewModel.swift; sourceTree = "<group>"; };
+		41972F682090DA88002384DB /* ValidationKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationKind.swift; sourceTree = "<group>"; };
+		41972F6C2091023A002384DB /* ContainerViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewModelProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +109,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		417450C4208F71B30068CADC /* Validators */ = {
+			isa = PBXGroup;
+			children = (
+				41972F682090DA88002384DB /* ValidationKind.swift */,
+				417450C7208F7E780068CADC /* SelectionValidator.swift */,
+				417450C0208F71720068CADC /* RegexValidator.swift */,
+				417450C5208F72030068CADC /* CNPJValidator.swift */,
+				417450C2208F71AF0068CADC /* CPFValidator.swift */,
+			);
+			path = Validators;
+			sourceTree = "<group>";
+		};
 		4191180B2086533F00D05A1D = {
 			isa = PBXGroup;
 			children = (
@@ -124,11 +150,9 @@
 				419118202086534100D05A1D /* LaunchScreen.storyboard */,
 				419118232086534100D05A1D /* Info.plist */,
 				16F3BFCE2088FED800DFABA1 /* FakeDataLayer.swift */,
-				16F3BFD0208924D500DFABA1 /* FakePresenterModels.swift */,
-				16F3BFD220892C5E00DFABA1 /* PagingOptions.swift */,
-				4191185720867C3F00D05A1D /* ContainerViewModel.swift */,
-				41911849208655E800D05A1D /* ContainerViewController.swift */,
-				4191184A208655E800D05A1D /* ContainerViewController.xib */,
+				16F3BFD0208924D500DFABA1 /* FakeModels.swift */,
+				41972F6A209101C4002384DB /* Presenter */,
+				417450C4208F71B30068CADC /* Validators */,
 				4191185920868CCD00D05A1D /* Layouts */,
 			);
 			path = POCPagingMenuController;
@@ -163,13 +187,34 @@
 		4191185920868CCD00D05A1D /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
-				16F3BFCC2087B60D00DFABA1 /* CommonViewControllerProtocol.swift */,
+				16F3BFCC2087B60D00DFABA1 /* CommonViewController.swift */,
 				4191184D2086569400D05A1D /* OneInputViewController.swift */,
 				4191184E2086569400D05A1D /* OneInputViewController.xib */,
 				41911851208656D700D05A1D /* SingleSelectionViewController.swift */,
 				41911852208656D700D05A1D /* SingleSelectionViewController.xib */,
 			);
 			path = Layouts;
+			sourceTree = "<group>";
+		};
+		41972F6A209101C4002384DB /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				41972F6B209101D7002384DB /* PagingContainer */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		41972F6B209101D7002384DB /* PagingContainer */ = {
+			isa = PBXGroup;
+			children = (
+				4191184A208655E800D05A1D /* ContainerViewController.xib */,
+				41911849208655E800D05A1D /* ContainerViewController.swift */,
+				4191185720867C3F00D05A1D /* ContainerViewModel.swift */,
+				41972F6C2091023A002384DB /* ContainerViewModelProtocol.swift */,
+				16F3BFD220892C5E00DFABA1 /* PagingOptions.swift */,
+				417450C9208F8FE60068CADC /* ValidationStatus.swift */,
+			);
+			path = PagingContainer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,15 +368,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				417450C3208F71AF0068CADC /* CPFValidator.swift in Sources */,
+				41972F692090DA88002384DB /* ValidationKind.swift in Sources */,
 				419118182086533F00D05A1D /* AppDelegate.swift in Sources */,
 				4191185820867C3F00D05A1D /* ContainerViewModel.swift in Sources */,
-				16F3BFCD2087B60D00DFABA1 /* CommonViewControllerProtocol.swift in Sources */,
+				16F3BFCD2087B60D00DFABA1 /* CommonViewController.swift in Sources */,
 				4191184B208655E800D05A1D /* ContainerViewController.swift in Sources */,
+				417450C1208F71720068CADC /* RegexValidator.swift in Sources */,
+				417450CA208F8FE60068CADC /* ValidationStatus.swift in Sources */,
+				41972F6D2091023A002384DB /* ContainerViewModelProtocol.swift in Sources */,
 				41911853208656D700D05A1D /* SingleSelectionViewController.swift in Sources */,
+				417450C6208F72030068CADC /* CNPJValidator.swift in Sources */,
 				4191184F2086569400D05A1D /* OneInputViewController.swift in Sources */,
 				16F3BFD320892C5E00DFABA1 /* PagingOptions.swift in Sources */,
 				16F3BFCF2088FED800DFABA1 /* FakeDataLayer.swift in Sources */,
-				16F3BFD1208924D500DFABA1 /* FakePresenterModels.swift in Sources */,
+				16F3BFD1208924D500DFABA1 /* FakeModels.swift in Sources */,
+				417450C8208F7E780068CADC /* SelectionValidator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

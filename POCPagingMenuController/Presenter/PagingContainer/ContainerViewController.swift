@@ -6,13 +6,15 @@
 //  Copyright © 2018 Tatiana Magdalena. All rights reserved.
 //
 
-import PagingMenuController
 import UIKit
+import PagingMenuController
 
 class ContainerViewController: UIViewController {
     // Outlets
     @IBOutlet var containerView: UIView!
     @IBOutlet var containerTopConstraint: NSLayoutConstraint!
+    @IBOutlet var nextButton: UIButton!
+    @IBOutlet var previousButton: UIButton!
     
     // Properties
     private var pagingMenuController: PagingMenuController!
@@ -47,7 +49,7 @@ class ContainerViewController: UIViewController {
     // MARK: - Paging -
     
     func configurePagingMenu() {
-        let options = PagingOptions(viewControllers: createChildViewControllers())
+        let options = Paging.Options(viewControllers: createChildViewControllers())
         pagingMenuController = PagingMenuController(options: options)
         pagingMenuController.view.frame = containerView.bounds
         
@@ -57,14 +59,14 @@ class ContainerViewController: UIViewController {
     }
     
     func createChildViewControllers() -> [CommonViewController] {
-        let outputs = viewModel.getNextOutputs()
+        let questions = viewModel.getNextQuestions()
         var childViewControllers = [CommonViewController]()
-        for output in outputs {
-            switch output.type {
+        for question in questions {
+            switch question.type {
             case .singleInput:
-                childViewControllers.append(OneInputViewController(output: output))
+                childViewControllers.append(OneInputViewController(question: question, viewModel: viewModel, nextButton: nextButton))
             case .singleSelection:
-                childViewControllers.append(SingleSelectionViewController(output: output))
+                childViewControllers.append(SingleSelectionViewController(question: question, viewModel: viewModel, nextButton: nextButton))
             }
         }
         return childViewControllers
@@ -82,9 +84,9 @@ class ContainerViewController: UIViewController {
             pagingMenuController.move(toPage: newIndex, animated: true)
             viewModel.updateCurrentPage(index: newIndex)
         case .reachedEnd:
-            viewModel.sendInputs()
+            viewModel.sendCompilation()
             viewModel.clearCurrentState()
-            let options = PagingOptions(viewControllers: createChildViewControllers())
+            let options = Paging.Options(viewControllers: createChildViewControllers())
             pagingMenuController.setup(options)
         default:
             break
@@ -109,8 +111,8 @@ class ContainerViewController: UIViewController {
     
     func gatherPageInput() {
         if let currentViewController = pagingMenuController.pagingViewController?.currentViewController as? CommonViewController {
-            if let input = currentViewController.input {
-                viewModel.save(input: input)
+            if let compilation = currentViewController.compilation {
+                viewModel.save(compilation: compilation)
             }
         }
     }

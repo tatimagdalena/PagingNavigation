@@ -14,6 +14,8 @@
             <connections>
                 <outlet property="containerTopConstraint" destination="wSn-TM-lFu" id="n05-hX-JlQ"/>
                 <outlet property="containerView" destination="VOe-2L-raT" id="cM8-LY-WPb"/>
+                <outlet property="nextButton" destination="R2f-6U-nJH" id="LJS-wm-GFO"/>
+                <outlet property="previousButton" destination="Jly-uD-b5h" id="Sox-pW-DZA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

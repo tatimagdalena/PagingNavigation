@@ -10,24 +10,26 @@ import Foundation
 
 struct FakeDataLayer {
     
-    // just to alternate between fake outputs
+    // just to alternate between fake questions
     static private var control = -1
     
-    func getOutputCluster() -> [Output] {
+    private let emailRegex = "(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"+"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"+"x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"+"z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5"+"]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"+"9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"+"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+    
+    func getQuestionCluster() -> [Question] {
         
         FakeDataLayer.control += 1
         
         if FakeDataLayer.control % 2 == 0 {
-            let output1 = Output(id: "wijzommdpowe", title: "Single text input, loop \(FakeDataLayer.control)", type: .singleInput)
-            let output2 = Output(id: "jdklajsdmkad", title: "Single selection, loop \(FakeDataLayer.control)", type: .singleSelection(options: ["option #1", "option #2"]))
-            return [output1, output2]
+            let question1 = Question(id: "wijzommdpowe", mandatory: true, title: "CPF Field, loop \(FakeDataLayer.control)", type: .singleInput, validation: .cpf)
+            let question2 = Question(id: "jdklajsdmkad", mandatory: true, title: "Single selection, loop \(FakeDataLayer.control)", type: .singleSelection(options: ["option #1", "option #2"]), validation: .singleInput)
+            return [question1, question2]
         }
         else {
-            let output1 = Output(id: "sioawiodea", title: "Single selection, loop \(FakeDataLayer.control)", type: .singleSelection(options: ["option #1", "option #2"]))
-            let output2 = Output(id: "jaiosjaiow", title: "Single selection, loop \(FakeDataLayer.control)", type: .singleSelection(options: ["option #101", "option #102"]))
-            let output3 = Output(id: "pqowpapods", title: "Single text input, loop \(FakeDataLayer.control)", type: .singleInput)
-            let output4 = Output(id: "iwopiapsjd", title: "Single text input, loop \(FakeDataLayer.control)", type: .singleInput)
-            return [output1, output2, output3, output4]
+            let question1 = Question(id: "sioawiodea", mandatory: true, title: "Single selection, loop \(FakeDataLayer.control)", type: .singleSelection(options: ["option #1", "option #2"]), validation: .none)
+            let question2 = Question(id: "jaiosjaiow",  mandatory: true, title: "Single selection, loop \(FakeDataLayer.control)", type: .singleSelection(options: ["option #101", "option #102"]), validation: .none)
+            let question3 = Question(id: "pqowpapods", mandatory: true, title: "Email field, loop \(FakeDataLayer.control)", type: .singleInput, validation: .string(regex: emailRegex))
+            let question4 = Question(id: "iwopiapsjd", mandatory: true, title: "Single text input, loop \(FakeDataLayer.control)", type: .singleInput, validation: .none)
+            return [question1, question2, question3, question4]
         }
     }
     
