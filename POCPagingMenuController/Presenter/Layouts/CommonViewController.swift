@@ -10,17 +10,20 @@ import UIKit
 
 class CommonViewController: UIViewController {
     
-    let question: Question
+    let output: QuestionOutput
+    
     var compilation: AnswerCompilation?
     
     // container view controller references
     var viewModel: ContainerViewModelProtocol
     var nextButton: UIButton
+    var previousButton: UIButton
     
-    init(question: Question, nibName: String, viewModel: ContainerViewModelProtocol, nextButton: UIButton) {
-        self.question = question
+    init(output: QuestionOutput, nibName: String, viewModel: ContainerViewModelProtocol, nextButton: UIButton, previousButton: UIButton) {
+        self.output = output
         self.viewModel = viewModel
         self.nextButton = nextButton
+        self.previousButton = previousButton
         super.init(nibName: nibName, bundle: Bundle.main)
     }
     
@@ -35,9 +38,15 @@ class CommonViewController: UIViewController {
     }
     
     func updateNextButtonUI(status: ValidationStatus) {
+        
         switch status {
-        case .valid(let enable): nextButton.isEnabled = enable
-        case .invalid: nextButton.isEnabled = false
+        case .valid(let canMoveForward):
+//            nextButton.isEnabled = screenStatus
+//            self.screenStatus = screenStatus
+            self.nextButton.isEnabled = canMoveForward
+        case .invalid:
+            nextButton.isEnabled = false
+//            self.screenStatus = screenStatus
         }
     }
 }

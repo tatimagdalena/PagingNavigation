@@ -20,24 +20,54 @@ struct Question {
 }
 
 enum Layout {
-    case singleInput
+    case singleInput(keyboard: KeyboardType)
+    case singleDate
     case singleSelection(options: [String])
 }
 
+enum KeyboardType {
+    case number
+    case phone
+    case email
+    case name
+    case `default`
+}
 
 // MARK: - PRESENTER LAYER -
 
 /// The object that contains all data that is needed to display the view
 struct QuestionOutput {
-    
+    let id: String
+    let title: String
+    let inputLayout: Layout
 }
 
 /// The object that contains all data gathered by the view
 struct Input {
-    //    let relatedQuestionId: String
     let id: String
-    let data: String
+    let data: Any
 }
+
+//struct TextInput: AnswerProtocol {
+//    typealias T = String
+//
+//    var id: String
+//    var data: String
+//}
+//
+//struct DateInput: AnswerProtocol {
+//    typealias T = Date
+//
+//    var id: String
+//    var data: Any
+//
+//}
+//
+//protocol AnswerProtocol {
+//    associatedtype T
+//    var id: String { get }
+//    var data: T { get set }
+//}
 
 struct AnswerCompilation {
     let relatedQuestionId: String

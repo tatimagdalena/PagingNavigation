@@ -9,24 +9,14 @@
 import Foundation
 
 enum ValidationStatus {
-    case valid(enableButton: Bool)
+    case valid(canMoveForward: Bool)
     case invalid(description: String)
     
-    init(bool: Bool, enableButton: Bool = false, description: String = "") {
+    init(bool: Bool, invalidDescription: String = "") {
         if bool {
-            self = .valid(enableButton: enableButton)
-        }
-        else {
-            self = .invalid(description: description)
-        }
-    }
-    
-    var booleanValue: Bool {
-        switch self {
-        case .valid: return true
-        case .invalid: return false
+            self = .valid(canMoveForward: bool)
+        } else {
+            self = .invalid(description: invalidDescription)
         }
     }
 }
-
-

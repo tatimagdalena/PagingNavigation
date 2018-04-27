@@ -21,8 +21,8 @@ class OneInputViewController: CommonViewController {
     
     // MARK: - Initializers -
 
-    init(question: Question, viewModel: ContainerViewModelProtocol, nextButton: UIButton) {
-        super.init(question: question, nibName: "OneInputViewController", viewModel: viewModel, nextButton: nextButton)
+    init(output: QuestionOutput, viewModel: ContainerViewModelProtocol, nextButton: UIButton, previousButton: UIButton) {
+        super.init(output: output, nibName: "OneInputViewController", viewModel: viewModel, nextButton: nextButton, previousButton: previousButton)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,8 +34,9 @@ class OneInputViewController: CommonViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        label.text = question.title
+        label.text = output.title
         textField.delegate = self
+        setKeyboardType()
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
@@ -44,17 +45,24 @@ class OneInputViewController: CommonViewController {
 
 extension OneInputViewController: UITextFieldDelegate {
     
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        let input = Input(id: textField.text ?? "", data: textField.text ?? "")
-//        compilation = AnswerCompilation(relatedQuestionId: question.id, inputs: [input])
-//    }
-    
     func handleNewText(_ newText: String) {
-        let input = Input(id: textField.text ?? "", data: textField.text ?? "")
-        compilation = AnswerCompilation(relatedQuestionId: question.id, inputs: [input])
+        let input = Input(id: "OAPZKCLaljlASd", data: textField.text ?? "")
+        compilation = AnswerCompilation(relatedQuestionId: output.id, inputs: [input])
         
-        let status = viewModel.inputTextChanged(newText: newText)
+        let status = viewModel.inputChanged(newInput: newText)
         updateNextButtonUI(status: status)
+    }
+    
+    func setKeyboardType() {
+        if case let .singleInput(keyboard) = output.inputLayout {
+            switch keyboard {
+            case .number: textField.keyboardType = .numberPad
+            case .phone: textField.keyboardType = .phonePad
+            case .email: textField.keyboardType = .emailAddress
+            case .name: textField.keyboardType = .default
+            case .default: textField.keyboardType = .default
+            }
+        }
     }
     
 }

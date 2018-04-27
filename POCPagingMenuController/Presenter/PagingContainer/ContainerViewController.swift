@@ -49,26 +49,53 @@ class ContainerViewController: UIViewController {
     // MARK: - Paging -
     
     func configurePagingMenu() {
-        let options = Paging.Options(viewControllers: createChildViewControllers())
+        let nextQuestions = viewModel.getNextQuestions()
+        let childViewControllers = createChildViewControllers(questionsOutputs: nextQuestions)
+        let options = Paging.Options(viewControllers: childViewControllers)
         pagingMenuController = PagingMenuController(options: options)
         pagingMenuController.view.frame = containerView.bounds
         
         addChildViewController(pagingMenuController)
         containerView.addSubview(pagingMenuController.view)
         pagingMenuController.didMove(toParentViewController: self)
-    }
-    
-    func createChildViewControllers() -> [CommonViewController] {
-        let questions = viewModel.getNextQuestions()
-        var childViewControllers = [CommonViewController]()
-        for question in questions {
-            switch question.type {
-            case .singleInput:
-                childViewControllers.append(OneInputViewController(question: question, viewModel: viewModel, nextButton: nextButton))
-            case .singleSelection:
-                childViewControllers.append(SingleSelectionViewController(question: question, viewModel: viewModel, nextButton: nextButton))
+        
+        pagingMenuController.onMove = { [unowned self] state in
+            switch state {
+            case .didMoveController:
+//                let pageStatus = self.viewModel.getCurrentPageStatus()
+//                self.nextButton.isEnabled = pageStatus.nextButtonEnabled
+//                self.previousButton.isHidden = pageStatus.previousButtonHidden
+                self.nextButton.isEnabled = self.viewModel.canMoveForward()
+                self.previousButton.isHidden = !self.viewModel.hasPreviousPage()
+            default:
+                break
             }
         }
+    }
+    
+    func updatePagingMenu() {
+        let nextQuestions = viewModel.getNextQuestions()
+        let childViewControllers = createChildViewControllers(questionsOutputs: nextQuestions)
+        let options = Paging.Options(viewControllers: childViewControllers)
+        pagingMenuController.setup(options)
+    }
+    
+    func createChildViewControllers(questionsOutputs: [QuestionOutput]) -> [CommonViewController] {
+        var childViewControllers = [CommonViewController]()
+        for output in questionsOutputs {
+            switch output.inputLayout {
+            case .singleInput:
+                let viewController = OneInputViewController(output: output, viewModel: viewModel, nextButton: nextButton, previousButton: previousButton)
+                childViewControllers.append(viewController)
+            case .singleDate:
+                let viewController = OneDateInputViewController(output: output, viewModel: viewModel, nextButton: nextButton, previousButton: previousButton)
+                childViewControllers.append(viewController)
+            case .singleSelection:
+                let viewController = SingleSelectionViewController(output: output, viewModel: viewModel, nextButton: nextButton, previousButton: previousButton)
+                childViewControllers.append(viewController)
+            }
+        }
+        previousButton.isHidden = true
         return childViewControllers
     }
     
@@ -85,9 +112,7 @@ class ContainerViewController: UIViewController {
             viewModel.updateCurrentPage(index: newIndex)
         case .reachedEnd:
             viewModel.sendCompilation()
-            viewModel.clearCurrentState()
-            let options = Paging.Options(viewControllers: createChildViewControllers())
-            pagingMenuController.setup(options)
+            updatePagingMenu()
         default:
             break
         }

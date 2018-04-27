@@ -17,33 +17,34 @@ class ContainerViewModel: ContainerViewModelProtocol {
     var currentPageIndex = 0
     var pages = [Paging.Page]()
     
-    private var compilationCluster = [AnswerCompilation?]()
-    
     // MARK: - Data -
     
-    func getNextQuestions() -> [Question] {
-        let questionCluster = FakeDataLayer().getQuestionCluster()
-        compilationCluster = [AnswerCompilation?](repeating: nil, count: questionCluster.count)
+    func getNextQuestions() -> [QuestionOutput] {
         
+        clearCurrentState()
+        
+        let questionCluster = FakeDataLayer().getQuestionCluster()
+        
+        var questionsOutputs = [QuestionOutput]()
         for index in questionCluster.indices {
             let question = questionCluster[index]
-            let page = Paging.Page(index: index, isMandatory: question.mandatory, validation: question.validation)
+            let page = Paging.Page(question: question)
             pages.append(page)
+            questionsOutputs.append(QuestionOutput(id: question.id, title: question.title, inputLayout: question.type))
         }
-        currentPageIndex = 0
         
-        return questionCluster
+        return questionsOutputs
     }
     
     func save(compilation: AnswerCompilation) {
-        compilationCluster[currentPageIndex] = compilation
+        pages[currentPageIndex].answer = compilation
     }
     
     func sendCompilation() {
         print("** SEND INPUTS TO API **")
         
-        for compilation in compilationCluster {
-            if let compilation = compilation {
+        for page in pages {
+            if let compilation = page.answer {
                 print("Question: \(compilation.relatedQuestionId)")
                 for input in compilation.inputs {
                     print("Answer \(input.id): \(input.data)")
@@ -54,10 +55,9 @@ class ContainerViewModel: ContainerViewModelProtocol {
         
     }
     
-    func clearCurrentState() {
+    private func clearCurrentState() {
         currentPageIndex = 0
         pages = []
-        compilationCluster = []
     }
     
     // MARK: - Paging Control -
@@ -90,18 +90,16 @@ class ContainerViewModel: ContainerViewModelProtocol {
    
     // MARK: - Validation -
     
-    func inputTextChanged(newText: String) -> ValidationStatus {
+    func inputChanged<T>(newInput: T) -> ValidationStatus {
         let page = pages[currentPageIndex]
-        let validator: (String) -> Bool = ValidatorFactory().validator(for: page.validation)
-        let isValid = validator(newText)
-        return ValidationStatus(bool: isValid, enableButton: isValid, description: "Something is invalid")
+        let validator: (T) -> Bool = ValidatorFactory().validator(for: page.question.validation)
+        let isValid = validator(newInput)
+        pages[currentPageIndex].isReady = page.question.mandatory || isValid
+        return ValidationStatus(bool: isValid, invalidDescription: "Something is invalid")
     }
     
-    func selected(amount: Int) -> ValidationStatus {
-        let page = pages[currentPageIndex]
-        let validator: (Int) -> Bool = ValidatorFactory().validator(for: page.validation)
-        let isValid = validator(amount)
-        return ValidationStatus(bool: isValid, enableButton: isValid, description: "Something is invalid")
-    }
     
+    func canMoveForward() -> Bool {
+        return pages[currentPageIndex].isReady
+    }
 }

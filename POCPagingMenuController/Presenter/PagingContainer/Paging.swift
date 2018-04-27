@@ -9,13 +9,16 @@
 import Foundation
 import PagingMenuController
 
-/// The definition of the paging options is needed for the PagingMenuController framework.
-
 struct Paging {
     struct Page {
-        var index = 0
-        var isMandatory: Bool
-        var validation: ValidationKind
+        var question: Question
+        var answer: AnswerCompilation?
+        var isReady: Bool
+        
+        init(question: Question) {
+            self.question = question
+            isReady = !question.mandatory
+        }
     }
     
     enum ChangeStatus {
@@ -25,6 +28,7 @@ struct Paging {
         case reachedBeggining
     }
     
+    /// The definition of the paging options is needed for the PagingMenuController framework.
     struct Options: PagingMenuControllerCustomizable {
         var componentType: ComponentType {
             return ComponentType.pagingController(pagingControllers: questionViewControllers)
